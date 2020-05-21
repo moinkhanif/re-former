@@ -1,3 +1,5 @@
+<%
+=begin%>
 <h1>User Registration</h1>
 <form action='/users' method='POST'> <br>
   <label for='username'>Username</label> <br>
@@ -9,3 +11,29 @@
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type='submit'>
 </form>
+<%
+=end%>
+
+<%
+=begin%>
+<%= form_tag("/users", method: "post") do%>
+<%= label_tag(:username, "Username") %>
+<%= text_field_tag(:username) %>
+<br>
+<%= label_tag(:email, "Email") %>
+<%= text_field_tag(:email) %>
+<br>
+<%= label_tag(:password, "Password") %>
+<%= password_field_tag(:password) %>
+<br>
+<%= submit_tag("Submit")%>
+<%end%>
+<%
+=end%>
+
+<%= form_for @user do |f|%>
+Your username here: <%= f.text_field :username%>
+Your email here   :<%= f.text_field :email, placeholder: "email@example.com"%>
+Your password here:<%= f.password_field :password%>
+<%= f.submit "Submit"%>
+<%end%>
