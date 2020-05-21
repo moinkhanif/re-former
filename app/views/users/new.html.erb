@@ -30,10 +30,20 @@
 <%end%>
 <%
 =end%>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-<%= form_for @user do |f|%>
-Your username here: <%= f.text_field :username%>
-Your email here   :<%= f.text_field :email, placeholder: "email@example.com"%>
-Your password here:<%= f.password_field :password%>
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for @user do |f|%><br>
+Your username here: <%= f.text_field :username%><br>
+Your email here   :<%= f.text_field :email, placeholder: "email@example.com"%><br>
+Your password here:<%= f.password_field :password%><br>
 <%= f.submit "Submit"%>
 <%end%>
