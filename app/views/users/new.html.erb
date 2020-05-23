@@ -1,0 +1,49 @@
+<%
+=begin%>
+<h1>User Registration</h1>
+<form action='/users' method='POST' accept-charset="UTF-8"> <br>
+  <label for='user[username]'>Username</label> <br>
+  <input type='text' id='username' name='user[username]'> <br>
+  <label for='user[email]'>Email</label> <br>
+  <input type='text' id='email' name='user[email]'> <br>
+  <label for='user[password]'>Password</label> <br>
+  <input type='password' id='password' name='user[password]'> <br>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <input type='submit'>
+</form>
+<%
+=end%>
+
+<%
+=begin%>
+<%= form_tag("/users") do%>
+<%= label_tag(:username, "Username") %>
+<%= text_field_tag(:username) %>
+<br>
+<%= label_tag(:email, "Email") %>
+<%= email_field_tag(:email) %>
+<br>
+<%= label_tag(:password, "Password") %>
+<%= password_field_tag(:password) %>
+<br>
+<%= submit_tag("Submit")%>
+<%end%>
+<%
+=end%>
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+    <ul>
+    <% @user.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+<%= form_for @user do |f|%><br>
+  Your username here: <%= f.text_field :username%><br>
+  Your email here   :<%= f.email_field :email, placeholder: "email@example.com"%><br>
+  Your password here:<%= f.password_field :password%><br>
+  <%= f.submit "Submit"%>
+<%end%>
